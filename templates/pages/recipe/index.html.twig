@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RecipeController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container mt-4">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-dismissible alert-success mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <h1>Mes recettes</h1>
+    {% if not recipes.items is same as ([]) %}
+        <table class="table table-hover mt-4">
+            <thread>
+            <tr class="table-secondary">
+                <th scope="col">Numéro</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Difficulté</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Édition</th>
+                <th scope="col">Suppression</th>
+            </tr>
+            </thread>
+            <tbody>
+            {% for recipe in recipes %}
+                <tr class="table-dark">
+                    <th scope="row">{{ recipe.id }}</th>
+                    <td>{{ recipe.name }}</td>
+                    <td>{{ recipe.price }}</td>
+                    <td>{{ recipe.difficulty }}</td>
+                    <td>{{ recipe.createdAt|date('d/m/Y') }}</td>
+                    <td>TODO</td>
+                    <td>TODO</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center mt-4">
+            {{ knp_pagination_render(recipes) }}
+        </div>
+    {% else %}
+        <h4>Il n'y a aucun ingrédient !</h4>
+    {% endif %}
+</div>
+{% endblock %}
