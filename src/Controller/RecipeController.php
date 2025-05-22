@@ -84,4 +84,20 @@ final class RecipeController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/recipe/remove/{id}', 'recipe_remove',methods:['GET','POST'])]
+    public function remove(Request $request,
+        EntityManagerInterface $manager,
+        Recipe $recipe): Response
+    {
+        $manager->remove($recipe);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "L'ingrédient a été supprimé !"
+        );
+
+        return $this->redirectToRoute('app_recipe');
+    }
 }
