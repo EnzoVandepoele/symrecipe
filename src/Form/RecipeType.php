@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class RecipeType extends AbstractType
 {
@@ -31,6 +32,10 @@ class RecipeType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'constraints' => [
+                    new Assert\Length(['min' => 2, 'max' => 50]),
+                    new Assert\NotBlank()
+                ]
             ])
             ->add('time', IntegerType::class, [
                 'attr' => [
@@ -42,6 +47,9 @@ class RecipeType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'constraints' => [
+                    new Assert\Range(['min' => 1, 'max' => 1440])
+                ]
             ])
             ->add('nbPersons', IntegerType::class, [
                 'attr' => [
@@ -53,6 +61,9 @@ class RecipeType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'constraints' => [
+                    new Assert\Range(['min' => 1, 'max' => 50])
+                ]
             ])
             ->add('difficulty', RangeType::class, [
                 'attr' => [
@@ -64,6 +75,10 @@ class RecipeType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'constraints' => [
+                    new Assert\Range(['min' => 1, 'max' => 5]),
+                    new Assert\NotBlank()
+                ]
             ])
             ->add('description', TextType::class, [
                 'attr' => [
@@ -75,6 +90,9 @@ class RecipeType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
+                'constraints' => [
+                    new Assert\NotBlank()
+                ]
             ])
             ->add('price', MoneyType::class, [
                 'attr' => [
@@ -83,6 +101,9 @@ class RecipeType extends AbstractType
                 'label' => 'Prix',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
+                ],
+                'constraints' => [
+                    new Assert\Range(['min' => 0, 'max' => 1000])
                 ]
             ])
             ->add('isFavorite', CheckboxType::class, [
